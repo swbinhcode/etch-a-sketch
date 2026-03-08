@@ -17,6 +17,12 @@
         const container = document.querySelector(".container");
         const button = document.querySelector("button");
 
+        function randomColor() {
+            const r = Math.random() * 256;
+            const g = Math.random() * 256;
+            const b = Math.random() * 256;
+            return `rgb(${r},${g},${b})`;
+        }
         function createGrid(size) {
 
             container.innerHTML = "";
@@ -31,8 +37,17 @@
                 square.style.width = squareSize + "px";
                 square.style.height = squareSize + "px";
 
+
                 square.addEventListener("mouseover", () => {
-                    square.style.backgroundColor = "black";
+                    if (!square.style.backgroundColor) {
+                        square.style.backgroundColor = randomColor();
+                        square.style.opacity = 0.1;
+                    } else {
+                        let opacity = parseFloat(square.style.opacity);
+                        if (opacity < 1) {
+                            square.style.opacity = opacity + 0.1;
+                        }
+                    }
                 });
 
                 container.appendChild(square);
